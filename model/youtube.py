@@ -12,4 +12,4 @@ def download_video(url, dir):
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
     except Exception as err:
-        return {"error": err, "run-state": 1}
+        return {"error": err, "run-state": '1'}
