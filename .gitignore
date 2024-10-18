@@ -1,0 +1,7 @@
+test.py
+data/audio/*
+data/opt_frames/*
+data/src_frames/*
+data/vid/*
+.venv
+.idea
