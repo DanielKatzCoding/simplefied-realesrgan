@@ -13,11 +13,4 @@ def clear_directory(dir_path):
             elif os.path.isdir(item_path):
                 shutil.rmtree(item_path)  # Remove the directory and all its contents
     else:
-        print(f"The directory {dir_path} does not exist or is not a directory.")
-
-
-def auto_clear():
-    clear_directory("../data/opt_frames")
-    clear_directory("../data/src_frames")
-    clear_directory("../data/vid")
-    clear_directory("../data/audio")
+        return {"error": f"The directory {dir_path} does not exist or is not a directory. CANNOT CLEAR THE DIR"}

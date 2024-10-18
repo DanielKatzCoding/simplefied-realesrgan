@@ -1,6 +1,6 @@
 from utils.cleanup import auto_clear
-from utils.youtube import download_highest_quality_video
-from utils.video_handle import *
+from model.youtube import download_highest_quality_video
+from model.video_handle import *
 
 import shutil
 
