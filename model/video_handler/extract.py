@@ -9,9 +9,8 @@ class Extract(VideoHandler):
 
     def extract_video(self):
         a = f"\"{Paths.ffmpeg_path}\" -i \"{self.video}\" -vf \"fps={self.get_video_fps()}\" \"{Paths.src_frames_dir}\\frame_%04d.png\""
-        print(a)
         run(a)
 
     def extract_audio(self):
-        a = f"\"{Paths.ffmpeg_path}\" -i \"{self.video}\" -q:a -map a \"{Paths.audio_dir}\\audio.mp3\""
+        a = f"\"{Paths.ffmpeg_path}\" -i \"{self.video}\" -q:a 0 -map a \"{Paths.audio_dir}\\audio.mp3\""
         run(a)

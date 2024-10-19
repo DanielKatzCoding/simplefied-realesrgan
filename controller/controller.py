@@ -70,7 +70,7 @@ class Controller:
     def enhance(self):
         q_frames = get_all_files(Paths.src_frames_dir)
         pbar = ProgressBar(q_frames)
-        while not q_frames.queue:
+        while q_frames.queue:
             EnhanceLib.highest_enhance(q_frames.get())
             pbar.update()
         self.log_queue.put({"log": {"default": "Done Enhancing"}})
