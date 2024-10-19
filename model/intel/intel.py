@@ -1,4 +1,9 @@
-from sub_intel.question import Question
+from queue import Queue
+
+from model.intel.question import Question
+from types import SimpleNamespace
+
+from typing import Callable, Optional
 
 
 class Intel:
@@ -9,8 +14,17 @@ class Intel:
         return cls._instance
 
     def __init__(self):
-        self.intel = {}
+        self.data = {}
+        self.q_questions: Queue[SimpleNamespace] = Queue()
 
-    def ask(self, keyname:str, question: Question):
-        opt = input(question.q)
-        self.intel[keyname] = opt
+    def add_question(self, keyname: str, question: Question, *, func: Optional[Callable] = None):
+        kwargs = SimpleNamespace(**{"keyname": keyname, "question": question, "func": func})
+        self.q_questions.put(kwargs)
+
+    def ask_all(self):
+        while self.q_questions.queue:
+            q = self.q_questions.get()
+            opt = input(q.question)
+            if q.func:
+                opt = q.func(opt)
+            self.data[q.keyname] = opt

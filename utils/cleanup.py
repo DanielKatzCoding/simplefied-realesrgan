@@ -13,4 +13,4 @@ def clear_directory(dir_path):
             elif os.path.isdir(item_path):
                 shutil.rmtree(item_path)  # Remove the directory and all its contents
     else:
-        return {"error": f"The directory {dir_path} does not exist or is not a directory. CANNOT CLEAR THE DIR"}
+        return {"log": {"error": f"The directory {dir_path} does not exist or is not a directory. CANNOT CLEAR THE DIR"}}

@@ -1,7 +1,7 @@
 import re
 import subprocess
 
-from model.paths import Paths
+from model import Paths
 from utils.get_files import get_single_file
 
 

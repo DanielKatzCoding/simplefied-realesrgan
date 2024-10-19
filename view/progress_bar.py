@@ -1,14 +1,17 @@
 from tqdm import tqdm
-from yt_dlp.utils import frange
 
-from utils.get_files import get_all_files
+from queue import Queue
 
+__all__ = ["ProgressBar"]
 
-class ProgressBar:
-    def __init__(self, data_dir: str):
-        self.frames = get_all_files(data_dir+"\\src_frames")
-        self.size = self.frames.qsize()
-        self.p_bar = tqdm(total=self.size, desc="Enhancing frames", unit="file")
+class ProgressBar(tqdm):
+    __slots__ = []
+    def __init__(self, q_frames: Queue[str]):
+        super().__init__()
+        self.total = q_frames.qsize()
+        self.desc = "Enhancing frames"
+        self.unit="file"
+        del q_frames
 
-    def update(self):
-        self.p_bar.update(1)  # Update the progress bar for each frame processed
+    def update(self, n: float | None = 1):
+        super().update(n)  # Call the parent's update method
