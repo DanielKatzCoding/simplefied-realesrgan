@@ -6,8 +6,6 @@ import shutil
 
 import os
 
-BASE_PATH = os.getcwd()
-
 
 def questionare():
     usr_type = input("(youtube url)/local import [(y)/n]: ")

@@ -1,13 +1,14 @@
-import os
 from tqdm import tqdm
+from yt_dlp.utils import frange
 
-### update to be relevent for controller
-def start_all(self):
-    frames = sorted(os.listdir(self.src))  # Get the list of frames from source directory
-    total_frames = len(frames)
+from utils.get_files import get_all_files
 
-    with tqdm(total=total_frames, desc="Enhancing frames", unit="file") as pbar:
-        for frame in frames:
-            src_frame_path = os.path.join(self.src, frame)
-            self.highest_enhance(src_frame_path)
-            pbar.update(1)  # Update the progress bar for each frame processed
+
+class ProgressBar:
+    def __init__(self, data_dir: str):
+        self.frames = get_all_files(data_dir+"\\src_frames")
+        self.size = self.frames.qsize()
+        self.p_bar = tqdm(total=self.size, desc="Enhancing frames", unit="file")
+
+    def update(self):
+        self.p_bar.update(1)  # Update the progress bar for each frame processed

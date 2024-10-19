@@ -1,15 +1,25 @@
 import os
+from queue import Queue
 
+BASE_PATH = ""
 
-def get_all_files(directory):
+def get_all_files(directory) -> Queue[str]:
     # List to store the full paths of files
-    file_paths = []
+    file_paths = Queue()
 
     # Walk through the directory
     for root, _, files in os.walk(directory):
         for file in files:
             # Join the directory path with the file name to get the full path
             full_path = os.path.join(root, file)
-            file_paths.append(full_path)
+            file_paths.put(full_path)
 
     return file_paths
+
+
+def get_single_file(directory) -> str:
+    # Walk through the directory
+    for root, _, files in os.walk(directory):
+        if files:  # Check if there are files in the current directory
+            # Return the full path of the first file found
+            return str(os.path.join(root, files[0]))  # Full path of the first file

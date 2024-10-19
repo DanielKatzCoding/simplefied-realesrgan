@@ -1,5 +1,6 @@
 from threading import Event
 from concurrent.futures import ThreadPoolExecutor
+from model.paths import Paths
 
 from queue import Queue
 from utils.commander import run
@@ -8,12 +9,7 @@ from utils.cleanup import clear_directory
 from view.logger import Logger
 
 class Controller:
-    def __init__(self, base_path, data_dir, ffmpeg_path, real_esrgan_path):
-        self.base_path = base_path
-        self.data_dir = base_path + data_dir
-        self.ffmpeg_path = base_path + ffmpeg_path
-        self.real_esrgan_path = base_path + real_esrgan_path
-
+    def __init__(self):
         self.log_queue = Queue()
         self.logger = Logger()
 
@@ -22,11 +18,9 @@ class Controller:
 
         self.e_logger = Event()
 
-
     def start(self):
         self.clear()
         self.threads_queue.put(self.thread_pool.submit(self.log))
-
 
 
     def log(self):
@@ -34,9 +28,9 @@ class Controller:
             if self.log_queue.not_empty:
                 self.logger.add(self.log_queue.get())
 
-
     def clear(self):
-        self.log_queue.put(clear_directory(self.data_dir+"\\audio"))
-        self.log_queue.put(clear_directory(self.data_dir+"\\opt_frames"))
-        self.log_queue.put(clear_directory(self.data_dir+"\\src_frames"))
-        self.log_queue.put(clear_directory(self.data_dir+"\\vid"))
+        self.log_queue.put(clear_directory(Paths.audio_dir))
+        self.log_queue.put(clear_directory(Paths.opt_frames_dir))
+        self.log_queue.put(clear_directory(Paths.src_frames_dir))
+        self.log_queue.put(clear_directory(Paths.video_dir))
+        self.log_queue.put(clear_directory(Paths.output_dir))
