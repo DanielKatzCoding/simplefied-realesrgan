@@ -11,7 +11,9 @@ class ProgressBar(tqdm):
         self.total = q_frames.qsize()
         self.desc = "Enhancing frames"
         self.unit="file"
+        self.n = 0
         del q_frames
 
-    def update(self, n: float | None = 1):
-        super().update(n)  # Call the parent's update method
+    def update_static_progress(self, n):
+        self.n = n
+        self.refresh()
